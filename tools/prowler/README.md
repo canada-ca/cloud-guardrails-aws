@@ -27,12 +27,12 @@ The ‘gc’ group of checks include the following checks:
 | ------ | ------ | ------ |
 | 3.0 | Validate that there is no access key for the AWS account’s root user. The access key for the AWS account root user gives full access to all resources for all AWS services, including billing information. You cannot reduce the permissions associated with your AWS account root user access key.  | check112  |
 | 3.1 | Confirm with the partner department that they have secured their AWS account’s root user password (for access to the AWS Management Console). Verify breakglass procedure manually. | NOT AUTOMATED |
-| 3.2 | Confirm that they are using a strong password and are not sharing it with anyone. Verify a strong password or strong password policy is enabled. |  |
-| 3.3 | Look for failed compliance status against the rule “Ensure MFA is enabled for the "root" account”.  Ensure MFA is enabled for the root account under the organization.  | check113 |
+| 3.2 | Confirm that they are using a strong password and are not sharing it with anyone. Verify a strong password or strong password policy is enabled. |  check_gcextra32, check110 |
+| 3.3 | Look for failed compliance status against the rule “Ensure MFA is enabled for the "root" account”.  Ensure MFA is enabled for the root account under the organization.  | check113, check114 |
 | 6.1a | Verify that the “SSC-RoleManagementPolicy” policy exists |  |
 | 6.1b | Verify that the “SSC-RoleManagementPolicy” policy exists |  |
 | 6.2 | Verify that the “SSC-CloudBroker” role has been created. |  |
-| 6.3 | Verify that the SSC account is a trusted entity of the “SSC-CloudBroker” role. NOTE: The AWS account is not hard-coded into the script and must be added before execution. |  |
+| 6.3 | Verify that the SSC account is a trusted entity of the “SSC-CloudBroker” role. NOTE: The AWS account is not hard-coded into the script and must be added before execution. | check_extragc63 |
 | 6.4 | Verify that the “SSC-CloudBroker” role contains the policies “SSC-RoleManagementPolicy”, “Billing”, “BillingAndAccountAccess”, “AWSPrivateMarketplaceAdminFullAccess”, “AWSMarketplaceRead-only”, “AWSCloudFormationReadOnlyAccess”, and “AWSHealthFullAccess” |  |
 | 7.0 | Verify that all EC2 instances are deployed only within the AWS Canada Central Region. Can be implemented via System Control Policy in Landing Zone.  |  |
 | 8.0 | Verify that storage instances are configured with encryption enabled. |  |
