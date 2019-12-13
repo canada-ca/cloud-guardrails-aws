@@ -8,6 +8,6 @@ This tool is under development by CDS.  This tools is a Go executable that will 
 
 ## Treasury Board of Canada Secretariat (TBS) compliance validation Tool
 
-TBD
+# GC Accelerators (AWS Guardrails – Prowler Extensions)
 
-This tool is under development by TBS.  
+https://github.com/canada-ca/cloud-guardrails-aws/tools/prowler
