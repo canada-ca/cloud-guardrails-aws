@@ -6,8 +6,10 @@ https://github.com/cds-snc/check_guardrails
 
 This tool is under development by CDS.  This tools is a Go executable that will be easily integrated into CI/CD to ensure that builds are meeting the guardrails.
 
+
+
 ## Treasury Board of Canada Secretariat (TBS) compliance validation Tool
 
-# GC Accelerators (AWS Guardrails – Prowler Extensions)
+### GC Accelerators (AWS Guardrails – Prowler Extensions)
 
-https://github.com/canada-ca/cloud-guardrails-aws/tools/prowler
+https://github.com/canada-ca/cloud-guardrails-aws/tree/master/tools/prowler
