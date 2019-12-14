@@ -48,4 +48,4 @@ The intent is to grow the number of GC Guardrails tested over time.
 
 3.	Integration with AWS Security Hub. An architecture already exists [here](https://aws.amazon.com/blogs/security/use-aws-fargate-prowler-send-security-configuration-findings-about-aws-services-security-hub/)
 
-4.	Move away from Prowler by going cloud native be using lambda. This is long-term future. The CIS benchmarks in AWS Security Hub verify some of the GC Guardrails. Lambda functions with AWS Security Hub integrations could be used for the rest.
+4.	Move away from Prowler by going cloud native be using lambda. This is in the long-term future. The CIS benchmarks in AWS Security Hub verify some of the GC Guardrails. Lambda functions with AWS Security Hub integrations could be used for the rest.
