@@ -24,7 +24,7 @@ $ ./Prowler –g gc
 The ‘gc’ group of checks include the following checks:
 
 | ID | Guardrail | Description of Check | File |
-| ------ | ------ | ------ |
+| ------ | ------ | ------ | ------ |
 | 01 | [Protect root / global admins account](EN/01_Protect-Root-Account.md) | Validate that there is no access key for the AWS account’s root user. The access key for the AWS account root user gives full access to all resources for all AWS services, including billing information. You cannot reduce the permissions associated with your AWS account root user access key.  | check112  |
 | 3.1 | Confirm with the partner department that they have secured their AWS account’s root user password (for access to the AWS Management Console). Verify breakglass procedure manually. | NOT AUTOMATED |
 | 3.2 | Confirm that the password policy aligns with GC Password Guidance. |  check_gcextra32, check110 |
