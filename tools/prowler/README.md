@@ -36,13 +36,16 @@ The ‘gc’ group of checks include the following checks:
 |    |    | Verify that the “SSC-CloudBroker” role contains the policies “SSC-RoleManagementPolicy”, “Billing”, “BillingAndAccountAccess”, “AWSPrivateMarketplaceAdminFullAccess”, “AWSMarketplaceRead-only”, “AWSCloudFormationReadOnlyAccess”, and “AWSHealthFullAccess” |  |
 | 05 | [Data location](EN/05_Data-Location.md) | Verify that all EC2 instances are deployed only within the AWS Canada Central Region. Can be implemented via System Control Policy in Landing Zone.  |  |
 |    |    | Verify that storage instances are configured with encryption enabled. |  |
-| 12 | [Configuration of cloud marketplaces](EN/12_Cloud-Marketplace-Config.md) | Validate that the AWS Organizations master account is utilizing Government of Canada Private Marketplace which only contains GC-approved cloud marketplace products and that it is shared across AWS Organizations.  |  |
+| 12 | [Configuration of cloud marketplaces](EN/12_Cloud-Marketplace-Config.md) | Validate that the AWS Organizations master account is utilizing Government of Canada Private Marketplace which only contains GC-approved cloud marketplace products and that it is shared across AWS Organizations.  | NOT AUTOMATED |
 |    |    | Validate that there is an SCP applied to all OUs that prevents any access to the Private Marketplace administration page; note that the only exception is for SSC’s possible access to add/remove products from the Private Marketplace over time. |  |
 
 
 ## Roadmap
 The intent is to grow the number of GC Guardrails tested over time. 
 1.	Increase usage of AWS Organizations to determine the collection of accounts used by a department is being worked on. Also, being able to identify how those accounts map back to the GC Accelerators architecture is on the roadmap. This will allow the number of GC Guardrail being verified to increase.
+
 2.	Multi-account verification. There are capabilities within Prowler. They need to be explored, or simply accomplish this with AWS Security Hub. Ideally however, you provide the master account in AWS Organizations and it then verifies that account and all others in the org.
+
 3.	Integration with AWS Security Hub. An architecture already exists [here](https://aws.amazon.com/blogs/security/use-aws-fargate-prowler-send-security-configuration-findings-about-aws-services-security-hub/)
+
 4.	Move away from Prowler by going cloud native be using lambda. This is long-term future. The CIS benchmarks in AWS Security Hub verify some of the GC Guardrails. Lambda functions with AWS Security Hub integrations could be used for the rest.
