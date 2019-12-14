@@ -26,18 +26,18 @@ The ‘gc’ group of checks include the following checks:
 | ID | Guardrail | Description of Check | File |
 | ------ | ------ | ------ | ------ |
 | 01 | [Protect root / global admins account](EN/01_Protect-Root-Account.md) | Validate that there is no access key for the AWS account’s root user. The access key for the AWS account root user gives full access to all resources for all AWS services, including billing information. You cannot reduce the permissions associated with your AWS account root user access key.  | check112  |
-| 3.1 | Confirm with the partner department that they have secured their AWS account’s root user password (for access to the AWS Management Console). Verify breakglass procedure manually. | NOT AUTOMATED |
-| 3.2 | Confirm that the password policy aligns with GC Password Guidance. |  check_gcextra32, check110 |
-| 3.3 | Look for failed compliance status against the rule “Ensure MFA is enabled for the "root" account”.  Ensure MFA is enabled for the root account under the organization.  | check113, check114 |
-| 6.1a | Verify that the “SSC-RoleManagementPolicy” policy exists |  |
-| 6.1b | Verify that the “SSC-RoleManagementPolicy” policy exists |  |
-| 6.2 | Verify that the “SSC-CloudBroker” role has been created. |  |
-| 6.3 | Verify that the SSC account is a trusted entity of the “SSC-CloudBroker” role. NOTE: The AWS account is not hard-coded into the script and must be added before execution. | check_extragc63 |
-| 6.4 | Verify that the “SSC-CloudBroker” role contains the policies “SSC-RoleManagementPolicy”, “Billing”, “BillingAndAccountAccess”, “AWSPrivateMarketplaceAdminFullAccess”, “AWSMarketplaceRead-only”, “AWSCloudFormationReadOnlyAccess”, and “AWSHealthFullAccess” |  |
-| 7.0 | Verify that all EC2 instances are deployed only within the AWS Canada Central Region. Can be implemented via System Control Policy in Landing Zone.  |  |
-| 8.0 | Verify that storage instances are configured with encryption enabled. |  |
-| 13.0 | Validate that the AWS Organizations master account is utilizing Government of Canada Private Marketplace which only contains GC-approved cloud marketplace products and that it is shared across AWS Organizations.  |  |
-| 13.1 | Validate that there is an SCP applied to all OUs that prevents any access to the Private Marketplace administration page; note that the only exception is for SSC’s possible access to add/remove products from the Private Marketplace over time. |  |
+|    |    | Confirm with the partner department that they have secured their AWS account’s root user password (for access to the AWS Management Console). Verify breakglass procedure manually. | NOT AUTOMATED |
+|    |    | Confirm that the password policy aligns with GC Password Guidance. |  check_gcextra32, check110 |
+|    |    | Look for failed compliance status against the rule “Ensure MFA is enabled for the "root" account”.  Ensure MFA is enabled for the root account under the organization.  | check113, check114 |
+| 04 | [Enterprise monitoring accounts](EN/04_Enterprise-Monitoring-Accounts.md) | Verify that the “SSC-RoleManagementPolicy” policy exists |  |
+|    |    | Verify that the “SSC-RoleManagementPolicy” policy exists |  |
+|    |    | Verify that the “SSC-CloudBroker” role has been created. |  |
+|    |    | Verify that the SSC account is a trusted entity of the “SSC-CloudBroker” role. NOTE: The AWS account is not hard-coded into the script and must be added before execution. | check_extragc63 |
+|    |    | Verify that the “SSC-CloudBroker” role contains the policies “SSC-RoleManagementPolicy”, “Billing”, “BillingAndAccountAccess”, “AWSPrivateMarketplaceAdminFullAccess”, “AWSMarketplaceRead-only”, “AWSCloudFormationReadOnlyAccess”, and “AWSHealthFullAccess” |  |
+| 05 | [Data location](EN/05_Data-Location.md) | Verify that all EC2 instances are deployed only within the AWS Canada Central Region. Can be implemented via System Control Policy in Landing Zone.  |  |
+|    |    | Verify that storage instances are configured with encryption enabled. |  |
+| 12 | [Configuration of cloud marketplaces](EN/12_Cloud-Marketplace-Config.md) | Validate that the AWS Organizations master account is utilizing Government of Canada Private Marketplace which only contains GC-approved cloud marketplace products and that it is shared across AWS Organizations.  |  |
+|    |    | Validate that there is an SCP applied to all OUs that prevents any access to the Private Marketplace administration page; note that the only exception is for SSC’s possible access to add/remove products from the Private Marketplace over time. |  |
 
 
 ## Roadmap
