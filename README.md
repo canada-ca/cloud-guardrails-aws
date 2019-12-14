@@ -1,10 +1,10 @@
 # GC Cloud Guardrails Checks for AWS
 
-This project will host the minimum guardrails as part of the GC Cloud Operationalization Framework for AWS. 
+This project will provide tools to validate the implementation of the minimum guardrails as part of the GC Cloud Operationalization Framework. The users of this project will be Government of Canada employees deploying cloud-based workloads.
 
-These guardrails enable the GC's Cloud First direction and support for the GC Digital Standards.
+## Purpose
 
-The users of this project will be Government of Canada employees deploying cloud-based workloads.
+The purpose of the guardrails is to ensure that departments and agencies are implementing a preliminary baseline set of controls within their cloud-based environments. These minimum guardrails are to be implemented within the GC-specified initial period (e.g. 30 days) upon receipt of an enrollment under the GC Cloud Services Framework Agreement.
 
 ## How to Contribute
 
