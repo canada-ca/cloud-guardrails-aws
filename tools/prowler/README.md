@@ -23,11 +23,11 @@ $ ./Prowler –g gc
 ## Checks
 The ‘gc’ group of checks include the following checks:
 
-| GC Guardrail | Description | File |
+| ID | Guardrail | Description of Check | File |
 | ------ | ------ | ------ |
-| 3.0 | Validate that there is no access key for the AWS account’s root user. The access key for the AWS account root user gives full access to all resources for all AWS services, including billing information. You cannot reduce the permissions associated with your AWS account root user access key.  | check112  |
+| 01 | [Protect root / global admins account](EN/01_Protect-Root-Account.md) | Validate that there is no access key for the AWS account’s root user. The access key for the AWS account root user gives full access to all resources for all AWS services, including billing information. You cannot reduce the permissions associated with your AWS account root user access key.  | check112  |
 | 3.1 | Confirm with the partner department that they have secured their AWS account’s root user password (for access to the AWS Management Console). Verify breakglass procedure manually. | NOT AUTOMATED |
-| 3.2 | Confirm that they are using a strong password and are not sharing it with anyone. Verify a strong password or strong password policy is enabled. |  check_gcextra32, check110 |
+| 3.2 | Confirm that the password policy aligns with GC Password Guidance. |  check_gcextra32, check110 |
 | 3.3 | Look for failed compliance status against the rule “Ensure MFA is enabled for the "root" account”.  Ensure MFA is enabled for the root account under the organization.  | check113, check114 |
 | 6.1a | Verify that the “SSC-RoleManagementPolicy” policy exists |  |
 | 6.1b | Verify that the “SSC-RoleManagementPolicy” policy exists |  |
