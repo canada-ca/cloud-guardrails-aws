@@ -1,0 +1,79 @@
+#!/usr/bin/env bash
+# To be used with prowler software:
+# Prowler - the handy cloud security tool (copyright 2019) by Toni de la Fuente
+#
+# New check created to ensure EC2 instances only reside in Canada.
+# Check added by Eric Maia (emaia061@gmail.com) for TBS Canada.
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may not
+# use this file except in compliance with the License. You may obtain a copy
+# of the License at http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software distributed
+# under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+# CONDITIONS OF ANY KIND, either express or implied. See the License for the
+# specific language governing permissions and limitations under the License.
+#
+# Government of Canada Cloud Guardrails Extensions
+# Eric Maia and Scott Levac Treasury Board of Canada Secretariat
+# December 2019
+
+CHECK_ID_extragc41="41"
+CHECK_TITLE_extragc41="[extragc41] Check for SSC-CloudBroker attached policies. (Not Scored) (Not part of CIS benchmark)"
+CHECK_SCORED_extragc41="NOT_SCORED"
+CHECK_TYPE_extragc41="EXTRA"
+CHECK_ALTERNATE_check41="extragc41"
+
+extragc41(){
+  role="SSC-CloudBroker"
+  p1="SSC-RoleManagementPolicy"
+  p2="BillingAndAccountAccess"
+  p3="AWSHealthFullAccess"
+  p4="AWSPrivateMarketplaceAdminFullAccess"
+  p5="AWSCloudFormationReadOnlyAccess"
+  p6="AWSMarketplaceRead-only"
+  p1_flag="False"
+  p2_flag="False"
+  p3_flag="False"
+  p4_flag="False"
+  p5_flag="False"
+  p6_flag="False"
+  LIST_ROLE_POLICIES=$($AWSCLI iam list-attached-role-policies --output text $PROFILE_OPT --query "AttachedPolicies[*].PolicyName" --region $REGION --role-name $role)
+  if [[ $LIST_ROLE_POLICIES ]];then
+
+    for policy in $LIST_ROLE_POLICIES;do
+      if [[ $policy == "$p1" ]];then
+        p1_flag="True"
+        textPass "$policy exists under $role"
+      fi
+      if [[ $policy == "$p2" ]];then
+        p2_flag="True"
+        textPass "$policy exists under $role"
+      fi
+      if [[ $policy == "$p3" ]];then
+        p3_flag="True"
+        textPass "$policy exists under $role"
+      fi
+      if [[ $policy == "$p4" ]];then
+        p4_flag="True"
+        textPass "$policy exists under $role"
+      fi
+      if [[ $policy == "$p5" ]];then
+        p5_flag="True"
+        textPass "$policy exists under $role"
+      fi
+      if [[ $policy == "$p6" ]];then
+        p6_flag="True"
+        textPass "$policy exists under $role"
+      fi
+    done
+    [[ $p1_flag == "False" ]] && textFail "Missing $p1 policy"
+    [[ $p2_flag == "False" ]] && textFail "Missing $p2 policy"
+    [[ $p3_flag == "False" ]] && textFail "Missing $p3 policy"
+    [[ $p4_flag == "False" ]] && textFail "Missing $p4 policy"
+    [[ $p5_flag == "False" ]] && textFail "Missing $p5 policy"
+    [[ $p6_flag == "False" ]] && textFail "Missing $p6 policy"
+  else
+    textFail "$role not found."
+  fi
+}

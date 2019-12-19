@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+# Prowler - the handy cloud security tool (copyright 2019) by Toni de la Fuente
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may not
+# use this file except in compliance with the License. You may obtain a copy
+# of the License at http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software distributed
+# under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+# CONDITIONS OF ANY KIND, either express or implied. See the License for the
+# specific language governing permissions and limitations under the License.
+
+# Remediation:
+#
+#   here URL to the relevand/official documentation
+#
+#   here commands or steps to fix it if avalable, like: 
+#   aws logs put-metric-filter \
+#     --region us-east-1 \
+#     --log-group-name CloudTrail/MyCloudTrailLG \
+#     --filter-name AWSCloudTrailChanges \
+#     --filter-pattern '{ ($.eventName = CreateTrail) || ($.eventName = UpdateTrail) || ($.eventName = DeleteTrail) || ($.eventName = StartLogging) || ($.eventName = StopLogging) }' \
+#     --metric-transformations metricName=CloudTrailEventCount,metricNamespace=CloudTrailMetrics,metricValue=1
+#
+# Government of Canada Cloud Guardrails Extensions
+# Eric Maia and Scott Levac Treasury Board of Canada Secretariat
+# December 2019
+# Looks for a trust entity with SSC root account
+
+CHECK_ID_extragc63="6.3"
+CHECK_TITLE_extragc63="[checkGC63] Trust entity with SSC established (Not Scored) (part of GC Guardrails)"
+CHECK_SCORED_extragc63="NOT_SCORED"
+CHECK_TYPE_extragc63="EXTRA"
+CHECK_ALTERNATE_extragc63="extragc63"
+
+
+
+
+extragc63(){
+
+SSC_REQ_TRUST_GC63="ENTER SSC ROOT ACCOUNT HERE"
+SSC_REQ_ROLE_GC63="SSC-CloudBroker"
+
+GC_SEC_ROLE_ASSUME_POLICY=$($AWSCLI iam get-role --role-name $SSC_REQ_ROLE_GC63 $PROFILE_OPT --region $REGION --output text --query 'Role.AssumeRolePolicyDocument.Statement[0].Principal.AWS')
+ 
+
+  if [[ $GC_SEC_ROLE_ASSUME_POLICY == *$SSC_REQ_TRUST_GC63* ]];then    
+    textPass "Trust with $SSC_REQ_TRUST_GC63 found"
+  else
+    textFail "Trust with $SSC_REQ_TRUST_GC63 NOT found"
+  fi
+   
+}

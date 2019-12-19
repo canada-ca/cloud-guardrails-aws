@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+# Prowler - the handy cloud security tool (copyright 2018) by Toni de la Fuente
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may not
+# use this file except in compliance with the License. You may obtain a copy
+# of the License at http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software distributed
+# under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+# CONDITIONS OF ANY KIND, either express or implied. See the License for the
+# specific language governing permissions and limitations under the License.
+
+# This is a modified version of check_extra713 to include master account information
+CHECK_ID_extragc110="11.0"
+CHECK_TITLE_extragc110="[extragc110] Check if GuardDuty Master Account is the LZ security account (Not Scored) (Needs to be manually verified)"
+CHECK_SCORED_extragc110="NOT_SCORED"
+CHECK_TYPE_extragc110="EXTRA"
+CHECK_ALTERNATE_checkgc110="extragc110"
+
+extragc110(){
+  # "Check if GuardDuty Master Account is the security account"
+   for regx in $REGIONS; do
+    LIST_OF_GUARDDUTY_DETECTORS=$($AWSCLI guardduty list-detectors $PROFILE_OPT --region $regx --output text --query DetectorIds[*] 2> /dev/null)
+    RESULT=$?
+    if [ $RESULT -eq 0 ];then
+      if [[ $LIST_OF_GUARDDUTY_DETECTORS ]];then
+        while read -r detector;do
+          DETECTOR_ENABLED=$($AWSCLI guardduty get-detector --detector-id $detector $PROFILE_OPT --region $regx --query "Status" --output text|grep ENABLED)
+          if [[ $DETECTOR_ENABLED ]]; then
+            textPass "$regx: GuardDuty detector $detector enabled" "$regx"
+             # Begin GCextragc110 addition - look for master account information
+              MASTER_ACCOUNT_GC=$($AWSCLI guardduty get-master-account --detector-id $detector $PROFILE_OPT --region $regx --output text)
+              textInfo "  The master account is account: $MASTER_ACCOUNT_GC, please verify this is the LZ security account"
+              # End GCextragc110
+          else
+            textFail "$regx: GuardDuty detector $detector configured but suspended" "$regx"
+          fi
+        done <<< "$LIST_OF_GUARDDUTY_DETECTORS"
+        else
+          textFail "$regx: GuardDuty detector not configured!" "$regx"
+      fi
+      else 
+      # if list-detectors return any error 
+      textInfo "$regx: GuardDuty not checked" "$regx"
+    fi 
+  done
+}

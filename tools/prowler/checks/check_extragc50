@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+# To be used with prowler software:
+# Prowler - the handy cloud security tool (copyright 2019) by Toni de la Fuente
+#
+# New check created to ensure EC2 instances only reside in Canada.
+# Check added by Eric Maia (emaia061@gmail.com) for TBS Canada.
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may not
+# use this file except in compliance with the License. You may obtain a copy
+# of the License at http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software distributed
+# under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+# CONDITIONS OF ANY KIND, either express or implied. See the License for the
+# specific language governing permissions and limitations under the License.
+#
+# Government of Canada Cloud Guardrails Extensions
+# Eric Maia and Scott Levac Treasury Board of Canada Secretariat
+# December 2019
+CHECK_ID_extragc50="5.0"
+CHECK_TITLE_extragc50="[extragc50] Ensure EC2 instances don't reside outside Canada. (Not Scored) (Not part of CIS benchmark)"
+CHECK_SCORED_extragc50="NOT_SCORED"
+CHECK_TYPE_extragc50="EXTRA"
+CHECK_ALTERNATE_check50="extragc50"
+
+extragc50(){
+  region="ca-central-"
+  none="None"
+  flag="True"
+  textInfo "Looking EC2 instances outside Canada"
+  for regex in $REGIONS; do
+    LIST_OF_INSTANCES=$($AWSCLI ec2 describe-instances $PROFILE_OPT --region $regex --output text --query 'Reservations[*].Instances[*].{Instance:InstanceId}')
+    if [[ $LIST_OF_INSTANCES ]];then
+      if [[ $regex == *"$region"* ]]; then
+        for ec2instance in $LIST_OF_INSTANCES;do
+          # echo "$ec2instance"
+            textInfo "EC2 instance ${ec2instance} found in ${regex}."
+        done
+
+      else
+        for ec2instance in $LIST_OF_INSTANCES;do
+          textFail "EC2 instance ${ec2instance} found in ${regex}."
+          flag="False"
+        done
+      fi
+    fi
+  done
+  [[ $flag == "True" ]] && textPass "No EC2 instance found outside Canada."
+}
