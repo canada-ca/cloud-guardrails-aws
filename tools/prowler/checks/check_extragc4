@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+# To be used with prowler software:
+# Prowler - the handy cloud security tool (copyright 2019) by Toni de la Fuente
+#
+# New check created to ensure EC2 instances only reside in Canada.
+# Check added by Eric Maia (emaia061@gmail.com) for TBS Canada.
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may not
+# use this file except in compliance with the License. You may obtain a copy
+# of the License at http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software distributed
+# under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+# CONDITIONS OF ANY KIND, either express or implied. See the License for the
+# specific language governing permissions and limitations under the License.
+#
+# Government of Canada Cloud Guardrails Extensions
+# Eric Maia and Scott Levac Treasury Board of Canada Secretariat
+# December 2019
+
+CHECK_ID_extragc4="4"
+CHECK_TITLE_extragc4="[extragc4] Check for SSC-RoleManagementPolicy and BillingAndAccountAccess. (Not Scored) (Not part of CIS benchmark)"
+CHECK_SCORED_extragc4="NOT_SCORED"
+CHECK_TYPE_extragc4="EXTRA"
+CHECK_ALTERNATE_checkgc4="extragc4"
+
+extragc4(){
+  p1="SSC-RoleManagementPolicy"
+  p2="BillingAndAccountAccess"
+  LIST_POLICIES=$($AWSCLI iam list-policies $PROFILE_OPT --output text --query 'Policies[*].PolicyName' --region $REGION)
+  p1_flag="False"
+  p2_flag="False"
+  for policy in $LIST_POLICIES;do
+    if [[ $policy ==  *"$p1"* ]]; then
+      textPass "$policy exists"
+      p1_flag="True"
+    fi
+    if [[ $policy ==  *"$p2"* ]]; then
+      textPass "$policy exists"
+      p2_flag="True"
+    fi
+    done
+  [[ $p1_flag == "False" ]] && textFail "$p1 doesn't exist."
+  [[ $p2_flag == "False" ]] && textFail "$p2 doesn't exist."
+}
